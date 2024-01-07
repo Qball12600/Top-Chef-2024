@@ -143,26 +143,43 @@ function findMexicanFood(allDishes) {
 
 function findItalianFood(allDishes) {
     alert("Searching for Italian dishes...")
+    const italianDishes = allDishes.filter(dish => dish.cuisine.toLowerCase() === "italian");
     // TODO #2: Filter all dishes for those that have a cuisine type of Italian
     alert("Found all Italian dishes!  Check the console for full output")
+    console.log ("Italian Dishes:", italianDishes);
+    return italianDishes;
 }
 
 function searchCuisines(allDishes) {
     alert("Searching for dishes by cuisine...")
+    const cuisineToSearch = prompt("Enter a cuisine to search for:");
+    const matchingDishes = allDishes.filter(dish => dish.cuisine.toLowerCase()=== cuisineToSearch.toLowerCase());
     // TODO #3: Gather user input for a cuisine to search for, then filter for all dishes matching this cuisine type
     alert("Found all dishes matching the cuisine search term!  Check the console for full output")
+    console.log('Dishes Matching Cuisine "${cuisineToSearch}":',matchingDishes);
+    return matchingDishes;
 }
 
 function searchIngredients(allDishes) {
     alert("Searching for dishes by ingredient...")
+    const ingredientsToSearch = prompt("Enter an ingredient to search for:");
+    const matchingDishes = allDishes.filter(dish => dish.ingredients.includes(ingredientToSearch));
     // TODO #4: Gather user input for an ingredient to search for, then filter for all dishes that INCLUDE this ingredient in their ingredients array property
     alert("Found all dishes that contain the ingredient search term!  Check the console for full output")
+    console.log('Dishes Containing Ingredient "${ingredientToSearch}":', matchingDishes);
+    return matchingDishes;
 }
 
 function generateCuisineDishName(allDishes) {
     alert("Combining cuisine and dish names...")
+    function concatenateFunction(dish) {
+        return '${dish.cuisine} ${dish.name}';
+    }
+    const modifiedDishes = allDishes.map(dish => concatenateFunction(dish));
+    console.log("Modified Dishes:", modiedDishes);
     // TODO #5: Apply the concatenatorFunction to each dish in allDishes, then log to the console the modified result
     alert("Successfully combined cuisine and dish names!  Check the console for full output.")
+
 }
 
 // <<<<<<<<<<<<<<<<< EMAIL AND TEXT MARKETING MESSAGES <<<<<<<<<<<<<<<<<
