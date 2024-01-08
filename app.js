@@ -162,7 +162,7 @@ function searchCuisines(allDishes) {
 
 function searchIngredients(allDishes) {
     alert("Searching for dishes by ingredient...")
-    const ingredientsToSearch = prompt("Enter an ingredient to search for:");
+    const ingredientToSearch = prompt("Enter an ingredient to search for:");
     const matchingDishes = allDishes.filter(dish => dish.ingredients.includes(ingredientToSearch));
     // TODO #4: Gather user input for an ingredient to search for, then filter for all dishes that INCLUDE this ingredient in their ingredients array property
     alert("Found all dishes that contain the ingredient search term!  Check the console for full output")
@@ -176,11 +176,11 @@ function generateCuisineDishName(allDishes) {
         return '${dish.cuisine} ${dish.name}';
     }
     const modifiedDishes = allDishes.map(dish => concatenateFunction(dish));
-    console.log("Modified Dishes:", modiedDishes);
+    console.log("Modified Dishes:", modifiedDishes);
     // TODO #5: Apply the concatenatorFunction to each dish in allDishes, then log to the console the modified result
     alert("Successfully combined cuisine and dish names!  Check the console for full output.")
-
 }
+ 
 
 // <<<<<<<<<<<<<<<<< EMAIL AND TEXT MARKETING MESSAGES <<<<<<<<<<<<<<<<<
 
@@ -191,7 +191,7 @@ function emailMessage(dishOfTheDay) {
 
     Thank you for subscribing to email alert messages!
     Today's Dish of the day is:
-
+    ${dishOfTheDay.cuisine} - ${dishOfTheDay.name}
     <DISH OF THE DAY HERE>
 
     We hope to see you in soon!
