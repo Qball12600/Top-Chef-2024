@@ -152,7 +152,7 @@ function findItalianFood(allDishes) {
 
 function searchCuisines(allDishes) {
     alert("Searching for dishes by cuisine...")
-    const cuisineToSearch = prompt("Enter a cuisine to search for:");
+    const cuisineToSearch = customPrompt("Enter a cuisine to search for:");
     const matchingDishes = allDishes.filter(dish => dish.cuisine.toLowerCase()=== cuisineToSearch.toLowerCase());
     // TODO #3: Gather user input for a cuisine to search for, then filter for all dishes matching this cuisine type
     alert("Found all dishes matching the cuisine search term!  Check the console for full output")
@@ -162,24 +162,48 @@ function searchCuisines(allDishes) {
 
 function searchIngredients(allDishes) {
     alert("Searching for dishes by ingredient...")
-    const ingredientToSearch = prompt("Enter an ingredient to search for:");
+    const ingredientToSearch = customPrompt("Enter an ingredient to search for:");
     const matchingDishes = allDishes.filter(dish => dish.ingredients.includes(ingredientToSearch));
     // TODO #4: Gather user input for an ingredient to search for, then filter for all dishes that INCLUDE this ingredient in their ingredients array property
     alert("Found all dishes that contain the ingredient search term!  Check the console for full output")
     console.log('Dishes Containing Ingredient "${ingredientToSearch}":', matchingDishes);
     return matchingDishes;
 }
+function ConcatenatorFunction(dish) {
+    return `${dish.cuisine} - ${dish.name}`;
+}
 
 function generateCuisineDishName(allDishes) {
-    alert("Combining cuisine and dish names...")
-    function concatenateFunction(dish) {
-        return '${dish.cuisine} ${dish.name}';
+    alert("Combining cuisine and dish names...");
+
+    if (!Array.isArray(allDishes) || allDishes.length === 0) {
+        console.error("Invalid or empty array of dishes");
+        return[];
     }
-    const modifiedDishes = allDishes.map(dish => concatenateFunction(dish));
+   
+    const modifiedDishes = allDishes.map(dish => ConcatenatorFunction(dish));
     console.log("Modified Dishes:", modifiedDishes);
     // TODO #5: Apply the concatenatorFunction to each dish in allDishes, then log to the console the modified result
-    alert("Successfully combined cuisine and dish names!  Check the console for full output.")
+    alert("Successfully combined cuisine and dish names!  Check the console for full output.");
+    return modifiedDishes;
 }
+const allDishes = [
+    {id: 1, name: "Margherita Pizza", cuisine: "Italian",servings: 4, ingredients: ["tomato", "chesse"] },
+    {id: 2, name: "Spaghetti Bolognese", cuisine: "Italian", servings: 2, ingredients: ["spaghetti", "meat sauce"]},
+    {id: 3, name: "Ravioli", cuisine: "Italian", servings: 2, ingredients: ["tomato", "cheese"],},
+    {id: 4, name: "Enchiladas", cuisine: "Mexican", servings: 6, ingredients: ["tomato", "cheese"],},
+    {id: 5, name: "Tacos", cuisine: "Mexican", servings: 4, ingredients: ["tomato", "cheese"],},
+    {id: 6, name: "Burrito Supreme", cuisine: "Mexican", servings: 1, ingredients: ["tomato", "cheese"],},
+    {id: 7, name: "Elote", cuisine: "Mexican", servings: 4, ingredients: ["corn", "cheese"],},
+    {id: 8, name: "Crepes", cuisine: "French", servings: 1, ingredients: ["flour", "sugar"],},
+    {id: 9, name: "Corned Beef & Cabbage", cuisine: "Irish", servings: 10, ingredients: ["beef", "cabbage"],},
+    {id: 10, name: "Beef Stew", cuisine: "Irish", servings: 8, ingredients: ["beef", "tomato"],},
+    {id: 11, name: "Lasagna", cuisine: "Vegetarian", servings: 8, ingredients: ["tomato", "cheese"],},
+    {id: 12, name: "Falafel", cuisine: "Vegetarian", servings: 1, ingredients: ["chickpea", "parsley"],},
+    {id: 13, name: "Chili", cuisine: "Vegetarian", servings: 13, ingredients: ["tomato", "chickpea"],},
+    {id: 14, name: "Goulash", cuisine: "Hungarian", servings: 15, ingredients: ["beef", "tomato"],},
+];
+generateCuisineDishName(allDishes);
  
 
 // <<<<<<<<<<<<<<<<< EMAIL AND TEXT MARKETING MESSAGES <<<<<<<<<<<<<<<<<
@@ -191,8 +215,8 @@ function emailMessage(dishOfTheDay) {
 
     Thank you for subscribing to email alert messages!
     Today's Dish of the day is:
-    ${dishOfTheDay.cuisine} - ${dishOfTheDay.name}
-    <DISH OF THE DAY HERE>
+    ${todaysSpecialDish.cuisine} - ${todaysSpecialDish.name}
+   
 
     We hope to see you in soon!
 
@@ -212,8 +236,8 @@ function textMessage(dishOfTheDay) {
 
     This is an automated text message alert.
     Today's Dish of the day is:
-
-    <DISH OF THE DAY HERE>
+    ${todaysSpecialDish.cuisine} - ${todaysSpecialDish.name}
+    
 
     We hope to see you in soon!
 
@@ -229,7 +253,9 @@ function textMessage(dishOfTheDay) {
 function generateMarketingMessage(dishOfTheDay, messageTypeCallback) {
     alert('Sending final message to all 389 customers...')
     // TODO #7: Call the passed-in callback function on the dishOfTheDay.  Save the result as a variable
+    const marketingMessage = messageTypeCallback(dishOfTheDay);
     // Then, log that result to the console
+    console.log("Final Marketing Message:", marketingMessage);
     alert('Success!  Check the console for a copy of the final marketing message!')
 }
 
@@ -278,13 +304,16 @@ function runApp(allDishes, specialDish) {
             console.log(concatenatedDishes)
             break
         case "6":
+            generateMarketingMessage(specialDish, textMessage);
+            break;
             // TODO #8: Call the appropriate function to generate the marketing text message.  
             // You will need to provide today's dish and the appropriate callback function as arguments!
-            break
+           
         case "7":
+            generateMarketingMessage(specialDish, emailMessage);
             // TODO #9: Call the appropriate function to generate the marketing email message.  
             // You will need to provide today's dish and the appropriate callback function as arguments!
-            break
+            break;
         case "Exit":
             alert("Thank you for using the Recipe Searching Application!  Goodbye!")
             return
